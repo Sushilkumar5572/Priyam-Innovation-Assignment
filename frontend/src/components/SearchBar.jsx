@@ -17,7 +17,7 @@ const SearchBar = ({ setPosts }) => {
         };
 
         return () => ws.current.close();
-    }, []);
+    }, [setPosts]);
 
     const handleChange = (e) => {
         const value = e.target.value;

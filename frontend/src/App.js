@@ -34,7 +34,7 @@ function App() {
       <SearchBar setPosts={setPosts} />
       <PostList posts={posts} />
     </div >
-    
+
   );
 }
 
