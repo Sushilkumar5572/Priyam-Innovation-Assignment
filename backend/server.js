@@ -4,7 +4,8 @@ import http from "http";
 import dotenv from "dotenv";
 import connectDB from "./config/db.config.js";
 import postRoutes from "./routes/post.route.js";
-import { startWebSocket } from "./websocket/wsServer.js";
+import { WebSocketServer } from "ws";
+import Post from "./models/Post.model.js";
 
 dotenv.config();
 
@@ -14,21 +15,33 @@ app.use(express.json());
 
 connectDB();
 
-
 // routes
 app.use("/api/posts", postRoutes);
 
-
+// create server
 const server = http.createServer(app);
 
-startWebSocket({server});
+// attach websocket
+const wss = new WebSocketServer({ server });
+
+wss.on("connection", (ws) => {
+    console.log("Client connected ✅");
+
+    ws.on("message", async (message) => {
+        const query = message.toString();
+
+        if (!query.trim()) return;
+
+        const results = await Post.find({
+            title: { $regex: query, $options: "i" },
+        }).limit(10);
+
+        ws.send(JSON.stringify(results));
+    });
+});
 
 const PORT = process.env.PORT || 5000;
 
 server.listen(PORT, () => {
-    console.log("WebSocket server running on port 5001");
+    console.log(`Server + WebSocket running on port ${PORT}`);
 });
-
-// server.listen(PORT, () => {
-//     console.log(`Server running on port ${PORT}`);
-// });

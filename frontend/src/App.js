@@ -8,14 +8,14 @@ function App() {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/posts")
+    axios.get("https://priyam-innovation-assignment-backend.onrender.com/api/posts")
       .then((res) => setPosts(res.data))
       .catch((err) => {
         if (err.response && err.response.status === 404) {
-          axios.get("http://localhost:5000/api/posts/fetch-posts")
+          axios.get("https://priyam-innovation-assignment-backend.onrender.com/api/posts/fetch-posts")
             .then(() => {
               // After fetching, try getting posts again
-              axios.get("http://localhost:5000/api/posts")
+              axios.get("https://priyam-innovation-assignment-backend.onrender.com/api/posts")
                 .then((res) => setPosts(res.data))
                 .catch((err) => console.error("Error fetching posts after fetch:", err));
             })

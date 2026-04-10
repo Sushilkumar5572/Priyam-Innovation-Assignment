@@ -8,6 +8,10 @@ const SearchBar = ({ setPosts }) => {
     useEffect(() => {
         ws.current = new WebSocket("wss://priyam-innovation-assignment-backend.onrender.com/");
 
+        ws.current.onopen = () => {
+            console.log("WebSocket connected");
+        };
+
         ws.current.onmessage = (event) => {
             setPosts(JSON.parse(event.data));
         };
@@ -21,7 +25,13 @@ const SearchBar = ({ setPosts }) => {
         clearTimeout(timeout.current);
 
         timeout.current = setTimeout(() => {
-            ws.current.send(value);
+            if (ws.current.readyState === WebSocket.OPEN) {
+
+                ws.current.send(value);
+            }
+            else {
+                console.error("WebSocket is not open");
+            }
         }, 300);
     };
 
