@@ -28,11 +28,13 @@ function App() {
   }, []);
 
   return (
-    <div style={{ padding: "20px" }}>
+
+    <div className="app">
       <h1>Posts</h1>
       <SearchBar setPosts={setPosts} />
       <PostList posts={posts} />
-    </div>
+    </div >
+    
   );
 }
 

@@ -6,7 +6,7 @@ const SearchBar = ({ setPosts }) => {
     const timeout = useRef(null);
 
     useEffect(() => {
-        ws.current = new WebSocket("ws://localhost:5001");
+        ws.current = new WebSocket("wss://priyam-innovation-assignment-backend.onrender.com/");
 
         ws.current.onmessage = (event) => {
             setPosts(JSON.parse(event.data));
@@ -26,12 +26,14 @@ const SearchBar = ({ setPosts }) => {
     };
 
     return (
-        <input
-            className="search-input"
-            type="text"
-            placeholder="Search posts..."
-            onChange={handleChange}
-        />
+        <div>
+            <input
+                className="search-input"
+                type="text"
+                placeholder="Search posts..."
+                onChange={handleChange}
+            />
+        </div>
     );
 };
 

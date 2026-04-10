@@ -21,13 +21,14 @@ body {
 
 /* Search box */
 .search-input {
-    width: 90%;
+    width: 100%;
     padding: 12px;
     margin: 20px 0;
     border-radius: 8px;
     border: 1px solid #ccc;
     outline: none;
     font-size: 16px;
+    box-sizing: border-box;
 }
 
 .search-input:focus {
@@ -95,6 +96,6 @@ body {
     padding: 20px;
     border-radius: 10px;
     max-width: 400px;
-    width: 90%;
+    width: 100%;
     text-align: center;
 }
